@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Athlete Performance & Functional Health Assessment — Root Health</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #2d4a3e;
+    --forest-light: #3d6b55;
+    --sage: #7a9e8e;
+    --sage-light: #a8c5b8;
+    --cream: #f6f2ec;
+    --cream-dark: #ede8df;
+    --gold: #b8955a;
+    --gold-light: #d4b483;
+    --charcoal: #2c2c2c;
+    --warm-gray: #6b6560;
+    --light-gray: #d6d0c8;
+    --red-flag: #c0392b;
+    --red-flag-bg: #fdf2f1;
+    --warning-bg: #fef9e7;
+    --warning-border: #d4ac0d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--forest);
+    color: #fff;
+    padding: 32px 48px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -40px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: rgba(120,158,142,0.15);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 60px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: rgba(184,149,90,0.12);
+  }
+  .header-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #fff;
+    margin-bottom: 18px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700;
+    line-height: 1.25; margin-bottom: 6px;
+  }
+  .header .subtitle {
+    font-size: 13px; color: var(--sage-light);
+    font-weight: 300; letter-spacing: 0.3px;
+  }
+  .header .contact-row {
+    margin-top: 12px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+  }
+  .header .contact-row a {
+    color: var(--gold-light);
+    text-decoration: none;
+  }
+
+  /* CONTAINER */
+  .container { max-width: 900px; margin: 0 auto; padding: 28px 24px 48px; }
+
+  /* INFO GRID */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 24px;
+  }
+  .info-field { display: flex; flex-direction: column; gap: 4px; }
+  .info-field label {
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 1.2px; color: var(--warm-gray); font-weight: 600;
+  }
+  .info-field .write-in {
+    border-bottom: 1px solid var(--charcoal);
+    height: 26px; width: 100%;
+    min-height: 20px;
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center;
+    gap: 12px; margin-bottom: 14px; margin-top: 28px;
+  }
+  .section-number {
+    background: var(--forest); color: #fff;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 600; color: var(--forest);
+  }
+  .section-header .section-tag {
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 1.2px; color: var(--sage); font-weight: 600;
+    background: rgba(122,158,142,0.12);
+    padding: 3px 8px; border-radius: 4px;
+  }
+
+  /* CARD */
+  .card {
+    background: #fff; border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    overflow: hidden; margin-bottom: 20px;
+    page-break-inside: avoid;
+  }
+  .card-body { padding: 20px 24px; }
+
+  /* SYSTEMS TABLE */
+  .systems-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .systems-table thead th {
+    background: var(--forest); color: #fff;
+    padding: 10px 12px; text-align: left;
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 1px; font-weight: 600;
+  }
+  .systems-table thead th:last-child { text-align: center; }
+  .system-category-row td {
+    background: rgba(45,74,62,0.08);
+    padding: 7px 12px; font-weight: 600;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.8px; color: var(--forest);
+    border-top: 2px solid var(--sage-light);
+  }
+  .systems-table tbody tr:not(.system-category-row) {
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .systems-table tbody td { padding: 9px 12px; vertical-align: middle; }
+  .systems-table .symptom-col { color: var(--charcoal); }
+  .score-boxes { 
+    display: flex; 
+    justify-content: center; 
+    gap: 8px; 
+  }
+  .score-box {
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid var(--light-gray);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--warm-gray);
+  }
+
+  /* SCORING LEGEND */
+  .score-legend {
+    display: flex; gap: 16px; justify-content: center;
+    padding: 10px 0 4px; flex-wrap: wrap;
+  }
+  .score-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--warm-gray); }
+  .score-legend-dot {
+    width: 22px; height: 22px; border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 600; color: #fff;
+  }
+  .dot-0 { background: #a8c5b8; }
+  .dot-1 { background: #7a9e8e; }
+  .dot-2 { background: #d4ac0d; }
+  .dot-3 { background: #c0392b; }
+
+  /* WRITE-IN SECTIONS */
+  .write-in-line {
+    border-bottom: 1px solid var(--charcoal);
+    min-height: 24px;
+    margin: 8px 0;
+  }
+  .write-in-area {
+    border: 1px solid var(--charcoal);
+    min-height: 80px;
+    margin: 8px 0;
+    padding: 8px;
+  }
+  .checkbox-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 8px 0;
+  }
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+  .checkbox-box {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--charcoal);
+    border-radius: 3px;
+  }
+
+  /* QUESTIONS */
+  .question {
+    margin-bottom: 16px;
+  }
+  .question-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--forest);
+    margin-bottom: 6px;
+  }
+
+  @media print {
+    body { background: #fff; }
+    .header, .system-category-row td, .systems-table thead {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .card { 
+      box-shadow: none; 
+      border: 1px solid #e0dbd4;
+      page-break-inside: avoid;
+    }
+    .container { padding: 0 24px; }
+    .section-header {
+      page-break-after: avoid;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="brand-name">Root Health</div>
+    <h1>Athlete Performance &<br>Functional Health Assessment</h1>
+    <p class="subtitle">Physica Energetics Causal Chain Protocol</p>
+    <div class="contact-row">
+      503 US 70 East, Suite L · Garner, NC 27529 · (919) 662-0520 · <a href="http://www.roothealthnc.com">www.roothealthnc.com</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ATHLETE INFO -->
+  <div class="info-grid">
+    <div class="info-field">
+      <label>Athlete Name</label>
+      <div class="write-in"></div>
+    </div>
+    <div class="info-field">
+      <label>Age</label>
+      <div class="write-in"></div>
+    </div>
+    <div class="info-field">
+      <label>Sport / Level</label>
+      <div class="write-in"></div>
+    </div>
+    <div class="info-field">
+      <label>Training Volume (hrs/wk)</label>
+      <div class="write-in"></div>
+    </div>
+    <div class="info-field">
+      <label>Primary Goal</label>
+      <div class="write-in"></div>
+    </div>
+    <div class="info-field">
+      <label>Date</label>
+      <div class="write-in"></div>
+    </div>
+  </div>
+
+  <!-- I. SYSTEMS REVIEW -->
+  <div class="section-header">
+    <div class="section-number">I</div>
+    <h2>Systems Review</h2>
+    <span class="section-tag">The "Identify" Phase</span>
+  </div>
+  <div class="card">
+    <div class="score-legend">
+      <div class="score-legend-item"><div class="score-legend-dot dot-0">0</div> Never</div>
+      <div class="score-legend-item"><div class="score-legend-dot dot-1">1</div> Occasionally</div>
+      <div class="score-legend-item"><div class="score-legend-dot dot-2">2</div> Often</div>
+      <div class="score-legend-item"><div class="score-legend-dot dot-3">3</div> Constant / Severe</div>
+    </div>
+    <table class="systems-table">
+      <thead>
+        <tr>
+          <th style="width:60%">Symptom</th>
+          <th style="width:40%; text-align:center">Circle Score (0-3)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- ENERGY & ADRENAL -->
+        <tr class="system-category-row"><td colspan="2">⚡ Energy & Adrenal</td></tr>
+        <tr>
+          <td class="symptom-col">Waking up tired even after 8+ hours of sleep</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="symptom-col">Energy crash between 2–4 PM</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="symptom-col">Feeling "tired but wired" — can't wind down</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- RECOVERY & INFLAMMATION -->
+        <tr class="system-category-row"><td colspan="2">🔄 Recovery & Inflammation</td></tr>
+        <tr>
+          <td class="symptom-col">Persistent muscle soreness (DOMS > 48 hrs)</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="symptom-col">Chronic joint stiffness or lingering inflammation</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="symptom-col">Slow bruise healing or frequent bruising</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- NEUROLOGICAL -->
+        <tr class="system-category-row"><td colspan="2">🧠 Neurological</td></tr>
+        <tr>
+          <td class="symptom-col">Brain fog, loss of focus, or spatial awareness issues ("the twisties")</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="symptom-col">Muscle cramping or twitching during/after training</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="symptom-col">Anxiety, nervousness, or difficulty calming after competition</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- DIGESTIVE & GUT -->
+        <tr class="system-category-row"><td colspan="2">🌿 Digestive & Gut</td></tr>
+        <tr>
+          <td class="symptom-col">Bloating, gas, or "heavy" feeling after eating</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="symptom-col">Frequent skin breakouts, slow-healing bruises, or recurrent infections</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="symptom-col">Irregular bowel habits or digestive unpredictability</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- SLEEP & RECOVERY RHYTHM -->
+        <tr class="system-category-row"><td colspan="2">🌙 Sleep & Recovery Rhythm</td></tr>
+        <tr>
+          <td class="symptom-col">Difficulty falling asleep or staying asleep</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="symptom-col">Feeling exhausted but "wired" at bedtime</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="symptom-col">Restless legs or tension that won't release at night</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- HORMONAL (FEMALE ATHLETES) -->
+        <tr class="system-category-row"><td colspan="2">🌸 Hormonal (Female Athletes)</td></tr>
+        <tr>
+          <td class="symptom-col">Irregular, missed, or painful periods</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="symptom-col">Mood swings, PMS symptoms, or emotional volatility around cycle</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="symptom-col">Unexplained weight changes or feeling cold when others are comfortable</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- BONE & CONNECTIVE TISSUE -->
+        <tr class="system-category-row"><td colspan="2">🦴 Bone & Connective Tissue</td></tr>
+        <tr>
+          <td class="symptom-col">Joints feel "loose" or hypermobile</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="symptom-col">Stress fractures, shin splints, or bone pain</td>
+          <td>
+            <div class="score-boxes">
+              <div class="score-box">0</div>
+              <div class="score-box">1</div>
+              <div class="score-box">2</div>
+              <div class="score-box">3</div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- II. NUTRITION -->
+  <div class="section-header">
+    <div class="section-number">II</div>
+    <h2>Nutrition & Metabolic Fueling</h2>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="question">
+        <div class="question-label">💧 Water intake during training (oz or mL):</div>
+        <div class="write-in-line"></div>
+      </div>
+      <div class="question">
+        <div class="question-label">Electrolytes used? (check one):</div>
+        <div class="checkbox-list">
+          <div class="checkbox-item"><div class="checkbox-box"></div> Yes</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> No</div>
+        </div>
+        <div style="font-size: 11px; color: var(--warm-gray); margin-top: 4px;">If yes, brand: <span style="border-bottom: 1px solid var(--charcoal); display: inline-block; width: 200px; min-height: 16px;"></span></div>
+      </div>
+      <div class="question">
+        <div class="question-label">🍎 What do you eat within 60 minutes after a workout?</div>
+        <div class="write-in-line"></div>
+      </div>
+      <div class="question">
+        <div class="question-label">🥩 Protein sources per day (number of meals/snacks with protein):</div>
+        <div class="write-in-line"></div>
+      </div>
+      <div class="question">
+        <div class="question-label">🍬 Do you crave any of these? (check all that apply):</div>
+        <div class="checkbox-list">
+          <div class="checkbox-item"><div class="checkbox-box"></div> Salt</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Sugar</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Ice</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Caffeine</div>
+        </div>
+      </div>
+      <div class="question">
+        <div class="question-label">🍽️ How many hours between last meal and bedtime?</div>
+        <div class="write-in-line"></div>
+      </div>
+      <div class="question">
+        <div class="question-label">🥗 Dietary restrictions or allergies? (check all that apply):</div>
+        <div class="checkbox-list">
+          <div class="checkbox-item"><div class="checkbox-box"></div> Gluten-free</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Dairy-free</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Vegan</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Other</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- III. SLEEP -->
+  <div class="section-header">
+    <div class="section-number">III</div>
+    <h2>Sleep & Recovery Habits</h2>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="question">
+        <div class="question-label">🕐 Average hours of sleep per night:</div>
+        <div class="write-in-line"></div>
+      </div>
+      <div class="question">
+        <div class="question-label">📱 Screen time within 1 hr of bed?</div>
+        <div class="checkbox-list">
+          <div class="checkbox-item"><div class="checkbox-box"></div> Yes</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> No</div>
+        </div>
+      </div>
+      <div class="question">
+        <div class="question-label">🧘 Any active recovery (yoga, stretching, meditation)?</div>
+        <div class="checkbox-list">
+          <div class="checkbox-item"><div class="checkbox-box"></div> Daily</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Sometimes</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Never</div>
+        </div>
+      </div>
+      <div class="question">
+        <div class="question-label">😴 Do you nap after practice?</div>
+        <div class="checkbox-list">
+          <div class="checkbox-item"><div class="checkbox-box"></div> Yes</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> No</div>
+        </div>
+      </div>
+      <div class="question">
+        <div class="question-label">📝 Describe your typical "rest day" activities:</div>
+        <div class="write-in-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IV. INJURY HISTORY -->
+  <div class="section-header">
+    <div class="section-number">IV</div>
+    <h2>Injury History & Tissue Integrity</h2>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="question">
+        <div class="question-label">List any current "niggles" (small pains) or past major injuries (fractures, tears, sprains):</div>
+        <div class="write-in-area"></div>
+      </div>
+      <div class="question">
+        <div class="question-label">Do you take NSAIDs (ibuprofen / naproxen) more than twice a week?</div>
+        <div class="checkbox-list">
+          <div class="checkbox-item"><div class="checkbox-box"></div> Yes</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> No</div>
+        </div>
+      </div>
+      <div class="question">
+        <div class="question-label">Have you had any stress fractures or bone injuries in the past 2 years?</div>
+        <div class="checkbox-list">
+          <div class="checkbox-item"><div class="checkbox-box"></div> Yes</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> No</div>
+        </div>
+      </div>
+      <div class="question">
+        <div class="question-label">Do joints feel "loose" or give way during training?</div>
+        <div class="checkbox-list">
+          <div class="checkbox-item"><div class="checkbox-box"></div> Yes</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> No</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- V. MENTAL WELLNESS -->
+  <div class="section-header">
+    <div class="section-number">V</div>
+    <h2>Mental & Competitive Wellness</h2>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="question">
+        <div class="question-label">🏆 How do you feel BEFORE a big competition?</div>
+        <div class="checkbox-list">
+          <div class="checkbox-item"><div class="checkbox-box"></div> Excited / Ready</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Nervous</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Anxious / Dread</div>
+        </div>
+      </div>
+      <div class="question">
+        <div class="question-label">😤 How do you handle a bad performance?</div>
+        <div class="checkbox-list">
+          <div class="checkbox-item"><div class="checkbox-box"></div> Shake it off</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Stressed for hours</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Can't stop replaying</div>
+        </div>
+      </div>
+      <div class="question">
+        <div class="question-label">😩 Do you feel burned out or "done" with your sport?</div>
+        <div class="checkbox-list">
+          <div class="checkbox-item"><div class="checkbox-box"></div> No</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Sometimes</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Yes — considering stopping</div>
+        </div>
+      </div>
+      <div class="question">
+        <div class="question-label">😬 Do you feel pressure about body size/weight/appearance?</div>
+        <div class="checkbox-list">
+          <div class="checkbox-item"><div class="checkbox-box"></div> No</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Sometimes</div>
+          <div class="checkbox-item"><div class="checkbox-box"></div> Frequently</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VI. LAB SELECTION -->
+  <div class="section-header">
+    <div class="section-number">VI</div>
+    <h2>Recommended Testing</h2>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size: 11px; color: var(--warm-gray); margin-bottom: 12px;">To be completed by practitioner based on assessment results:</p>
+      <div class="checkbox-list" style="flex-direction: column; gap: 12px;">
+        <div class="checkbox-item"><div class="checkbox-box"></div> Vibrant Micronutrient Panel (First-line athlete test)</div>
+        <div class="checkbox-item"><div class="checkbox-box"></div> Vibrant Gut Zoomer Complete</div>
+        <div class="checkbox-item"><div class="checkbox-box"></div> Vibrant Neural Zoomer Plus ("Twisties" protocol)</div>
+        <div class="checkbox-item"><div class="checkbox-box"></div> HTMA (Hair Tissue Mineral Analysis)</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 32px; padding: 16px; background: rgba(45,74,62,0.05); border-radius: 8px; text-align: center;">
+    <p style="font-size: 12px; color: var(--forest); font-weight: 600; margin-bottom: 4px;">Return completed form to:</p>
+    <p style="font-size: 12px; color: var(--charcoal);">Root Health · (919) 662-0520 · <span style="color: var(--gold);">www.roothealthnc.com</span></p>
+  </div>
+
+</div>
+
+</body>
+</html>
