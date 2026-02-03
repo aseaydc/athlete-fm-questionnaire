@@ -85,7 +85,7 @@
   }
 
   /* CONTAINER */
-  .container { max-width: 900px; margin: 0 auto; padding: 28px 24px 48px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 16px 24px 48px; }
 
   /* INFO GRID */
   .info-grid {
@@ -96,7 +96,8 @@
     border-radius: 10px;
     padding: 20px 24px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    margin-bottom: 24px;
+    margin-bottom: 12px;
+    page-break-inside: avoid;
   }
   .info-field { display: flex; flex-direction: column; gap: 4px; }
   .info-field label {
@@ -112,7 +113,8 @@
   /* SECTION HEADERS */
   .section-header {
     display: flex; align-items: center;
-    gap: 12px; margin-bottom: 14px; margin-top: 28px;
+    gap: 12px; margin-bottom: 14px; margin-top: 16px;
+    page-break-after: avoid;
   }
   .section-number {
     background: var(--forest); color: #fff;
@@ -251,6 +253,13 @@
     .container { padding: 0 24px; }
     .section-header {
       page-break-after: avoid;
+    }
+    /* Keep athlete info + first section together on page 1 */
+    .info-grid {
+      page-break-after: avoid;
+    }
+    .section-header:first-of-type {
+      page-break-before: avoid;
     }
   }
 </style>
